@@ -4,14 +4,16 @@ import React, {useState, useEffect} from 'react';
 import Nav from './src/Nav';
 import Generate from './src/Generate';
 import ListItems from './src/ListItems';
+import MyInputs from './src/MyInputs';
 
 const styles = StyleSheet.create({
   mainView: {
     paddingTop: 50,
+    width: '100%',
     backgroundColor: 'white',
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
   },
   basicView: {
     backgroundColor: 'green',
@@ -60,6 +62,7 @@ export default function App() {
         <Generate add={() => onAddRandom()} />
         <ListItems items={random} removeItem={(pos) => handleRemoveItem(pos)} />
       </View>
+      <MyInputs></MyInputs>
     </View>
   );
 }
