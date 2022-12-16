@@ -13,7 +13,7 @@ const Generate = ({add}) => {
     <>
       <Pressable onPress={add}>
         <View style={styles.generate}>
-          <Text style={{color: 'white'}}>Button One</Text>
+          <Text style={{color: 'white'}}>Add Random number</Text>
         </View>
       </Pressable>
     </>
