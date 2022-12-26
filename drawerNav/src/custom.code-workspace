@@ -1,0 +1,35 @@
+{
+  "folders": [
+	{
+		"path": "../../../../meadio/graphql"
+	},
+	{
+		"path": "../../../../algorithms"
+	},
+	{
+		"path": "../../../../chore-helper"
+	},
+	{
+		"path": "../../../../styled-components"
+	},
+	{
+		"path": "../../../../UNC-coding-bootcamp/UNC projects/mmcgee-react-portfolio"
+	},
+	{
+		"path": "../../../../UNC-coding-bootcamp/UNC projects/shop-shop"
+	},
+	{
+		"path": "../../../../react-apps/derp-cues"
+	},
+	{
+		"path": "../../../../../Downloads/g-09-08-b-test-createUser"
+	},
+	{
+		"path": "../.."
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "codeboss",
+    "git.ignoreLimitWarning": true
+  }
+}
