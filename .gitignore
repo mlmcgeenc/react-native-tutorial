@@ -1,3 +1,5 @@
+AppDelegate.mm
+
 # Xcode
 !**/*.xcodeproj
 !**/*.pbxproj
