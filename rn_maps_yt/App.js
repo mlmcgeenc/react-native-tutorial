@@ -2,6 +2,29 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 
+const locations = [
+  {
+    title: 'Blue Dream Curry',
+    longitude: -82.555,
+    latitude: 35.5945,
+  },
+  {
+    title: 'Asaka',
+    longitude: -82.545,
+    latitude: 35.5688,
+  },
+  {
+    title: 'OTC',
+    longitude: -82.5517,
+    latitude: 35.5974,
+  },
+  {
+    title: 'AVL',
+    longitude: -82.5515,
+    latitude: 35.5951,
+  },
+];
+
 const App = () => {
   return (
     <View style={styles.container}>
@@ -14,27 +37,17 @@ const App = () => {
           latitudeDelta: 0.05,
           longitudeDelta: 0.0121,
         }}>
-        <Marker
-          title={'Blue Dream Curry'}
-          coordinate={{
-            latitude: 35.5945,
-            longitude: -82.555,
-          }}
-        />
-        <Marker
-          title={'Asaka'}
-          coordinate={{
-            latitude: 35.5688,
-            longitude: -82.545,
-          }}
-        />
-        <Marker
-          title={'OTC'}
-          coordinate={{
-            latitude: 35.5974,
-            longitude: -82.5517,
-          }}
-        />
+        {locations[0] != null &&
+          locations.map((marker, index) => (
+            <Marker
+              key={index}
+              title={marker.title}
+              coordinate={{
+                longitude: marker.longitude,
+                latitude: marker.latitude,
+              }}
+            />
+          ))}
       </MapView>
       <Text>react-native-maps Demo</Text>
     </View>
