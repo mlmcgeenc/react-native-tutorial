@@ -40,7 +40,6 @@ const App = () => {
         newLocation.longitude = location.lng.toFixed(4);
 
         setLocationsList([...locationsList, newLocation]);
-        console.log("New Location Added: ", newLocation)
         setMarkerName('')
         setAddress('')
         setZip('')
@@ -50,14 +49,11 @@ const App = () => {
 
   const filterLocations = searchString => {
     let newList= []
-    console.log('Filtering locations with: ', searchString);
     if (searchString.length > 0) {
       newList = locationsList.filter(location =>
         location.title.includes(searchString),
       );
       setFilteredLocations(newList);
-      console.log(newList)
-      console.log(filteredLocations)
     } else {
       setFilteredLocations(locationsList);
     }
