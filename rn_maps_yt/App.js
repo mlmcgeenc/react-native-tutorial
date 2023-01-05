@@ -12,46 +12,15 @@ import Geocoder from 'react-native-geocoding';
 
 Geocoder.init('');
 
-const locations = [
-  {
-    title: 'Blue Dream Curry',
-    address: '',
-    city: 'Asheville',
-    zip: 28801,
-    longitude: -82.555,
-    latitude: 35.5945,
-  },
-  {
-    title: 'Asaka',
-    address: '',
-    city: 'Asheville',
-    zip: 28801,
-    longitude: -82.545,
-    latitude: 35.5688,
-  },
-  {
-    title: 'OTC',
-    address: '',
-    city: 'Asheville',
-    zip: 28801,
-    longitude: -82.5517,
-    latitude: 35.5974,
-  },
-];
-
 const App = () => {
   const [markerName, setMarkerName] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [zip, setZip] = useState('');
-  const [locationsList, setLocationsList] = useState([])
+  const [locationsList, setLocationsList] = useState([]);
+  const [filteredLocations, setFilteredLocations] = useState([]);
 
-  const handleDecodeAddress = async() => {
-    console.log('decodedAddress fired')
-    console.log(`Marker Name: ${markerName}`)
-    console.log(`Address: ${address}`)
-    console.log(`Zip: ${zip}`)
-
+  const handleDecodeAddress = async () => {
     let newLocation = {
       title: markerName,
       address: address,
@@ -59,19 +28,39 @@ const App = () => {
       zip: zip,
       longitude: null,
       latitude: null,
-    }
+    };
 
-    let searchString = `${markerName} ${address} ${zip}`
+    let searchString = `${markerName} ${address} ${zip}`;
 
     Geocoder.from(searchString)
       .then(json => {
         var location = json.results[0].geometry.location;
-        newLocation.latitude = location.lat.toFixed(4)
-        newLocation.longitude = location.lng.toFixed(4)
+
+        newLocation.latitude = location.lat.toFixed(4);
+        newLocation.longitude = location.lng.toFixed(4);
+
         setLocationsList([...locationsList, newLocation]);
-        console.log(locations);
+        console.log("New Location Added: ", newLocation)
+        setMarkerName('')
+        setAddress('')
+        setZip('')
       })
       .catch(error => console.warn(error));
+  };
+
+  const filterLocations = searchString => {
+    let newList= []
+    console.log('Filtering locations with: ', searchString);
+    if (searchString.length > 0) {
+      newList = locationsList.filter(location =>
+        location.title.includes(searchString),
+      );
+      setFilteredLocations(newList);
+      console.log(newList)
+      console.log(filteredLocations)
+    } else {
+      setFilteredLocations(locationsList);
+    }
   };
 
   return (
@@ -86,8 +75,8 @@ const App = () => {
             latitudeDelta: 0.05,
             longitudeDelta: 0.0121,
           }}>
-          {locations[0] != null &&
-            locationsList.map((marker, index) => (
+          {filteredLocations[0] != null &&
+            filteredLocations.map((marker, index) => (
               <Marker
                 key={index}
                 title={marker.title}
@@ -98,7 +87,11 @@ const App = () => {
               />
             ))}
         </MapView>
-        <Text>react-native-maps Demo</Text>
+        <TextInput
+          style={styles.formInput}
+          placeholder="Search"
+          onChangeText={filterLocations}
+          ></TextInput>
       </View>
 
       <View style={styles.markersList}>
@@ -109,8 +102,7 @@ const App = () => {
             placeholder="Location name"
             value={markerName}
             onChangeText={setMarkerName}
-            autoFocus="true"
-            ></TextInput>
+            autoFocus="true"></TextInput>
           <TextInput
             style={styles.formInput}
             id="addressInput"
@@ -135,8 +127,8 @@ const App = () => {
         </>
 
         <ScrollView>
-          {locationsList[0] != null &&
-            locationsList.map((marker, index) => (
+          {filteredLocations[0] != null &&
+            filteredLocations.map((marker, index) => (
               <View style={styles.location} key={index}>
                 <Text style={styles.markerTitle}>{marker.title}</Text>
                 <Text style={styles.markerAddress}>
@@ -166,14 +158,17 @@ const styles = StyleSheet.create({
   },
   formInput: {
     height: 42,
+    minWidth: 252,
     padding: 4,
     margin: 4,
     borderWidth: 1,
     borderColor: 'gray',
     borderRadius: 4,
+    backgroundColor: 'white',
   },
   markersList: {
-    marginTop: 400,
+    marginTop: 416,
+    paddingHorizontal: 16,
   },
   location: {
     marginTop: 8,
