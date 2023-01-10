@@ -5,9 +5,13 @@
     },
     {
       "path": "../../../../algorithms"
+    },
+    {
+      "path": "../../../../frontend-practice"
     }
   ],
   "settings": {
-    "java.compile.nullAnalysis.mode": "disabled"
+    "java.compile.nullAnalysis.mode": "disabled",
+    "liveServer.settings.multiRootWorkspaceName": "frontend-practice"
   }
 }
